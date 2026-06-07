@@ -69,3 +69,7 @@ body {
 .animate-fade-in-delay-3 {
   animation: fadeIn 0.8s ease-out 1.5s forwards;
 }
+
+.animate-fade-in-delay-navbar {
+  animation: fadeIn 0.8s ease-out 1.2s forwards;
+}

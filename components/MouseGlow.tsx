@@ -31,7 +31,7 @@ export default function MouseGlow() {
           left: position.x,
           top: position.y,
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%)",
+            "radial-gradient(circle, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0) 70%)",
         }}
       />
     </div>
