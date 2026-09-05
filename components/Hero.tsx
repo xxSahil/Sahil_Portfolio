@@ -7,21 +7,22 @@ export default function Hero() {
     <section className="flex min-h-screen items-center py-28 sm:py-32">
       <div className="grid w-full items-center gap-16 xl:grid-cols-2">
         <div className="text-center xl:text-left">
-          <h1 className="mx-auto xl:mx-0 animate-typing overflow-hidden whitespace-nowrap border-r-2 border-zinc-300 text-[clamp(2.25rem,14vw,4.5rem)] font-semibold tracking-tight text-zinc-100 md:text-8xl">
+          <h1 className="mx-auto xl:mx-0 animate-typing overflow-hidden whitespace-nowrap border-r-2 border-accent text-[clamp(2.25rem,14vw,4.5rem)] font-semibold tracking-tight text-foreground md:text-8xl">
             Sahil Minhas
           </h1>
 
           <div className="mt-6 space-y-1 animate-fade-in-delay-1 opacity-0">
-            <p className="inline-flex items-center gap-2 text-lg text-zinc-300">
+            <p className="inline-flex items-center gap-2 text-lg text-muted">
               Software Developer from Toronto, Canada <SiAircanada />
             </p>
           </div>
 
-          <div className="mt-8 flex animate-fade-in-delay-2 flex-col items-center gap-6 text-zinc-500 opacity-0 sm:flex-row sm:justify-center xl:justify-start">            <a
+          <div className="mt-8 flex animate-fade-in-delay-2 flex-col items-center gap-6 text-muted opacity-0 sm:flex-row sm:justify-center xl:justify-start">
+            <a
               href="https://github.com/xxSahil"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-4xl transition hover:-translate-y-0.5 hover:text-zinc-100"
+              className="text-4xl transition hover:-translate-y-0.5 hover:text-accent"
             >
               <FaGithub />
             </a>
@@ -30,14 +31,14 @@ export default function Hero() {
               href="https://www.linkedin.com/in/sahilminhas/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-4xl transition hover:-translate-y-0.5 hover:text-zinc-100"
+              className="text-4xl transition hover:-translate-y-0.5 hover:text-accent"
             >
               <FaLinkedin />
             </a>
 
             <a
               href="mailto:Sahilsminhas@gmail.com"
-              className="text-4xl transition hover:-translate-y-0.5 hover:text-zinc-100"
+              className="text-4xl transition hover:-translate-y-0.5 hover:text-accent"
             >
               <FaEnvelope />
             </a>
@@ -52,20 +53,20 @@ export default function Hero() {
                 gap-2
                 rounded-full
                 border
-                border-zinc-800
-                bg-white
+                border-line
+                bg-button
                 opacity-95
                 px-6
                 py-3
                 text-sm
                 font-medium
-                text-black
+                text-button-text
                 backdrop-blur-sm
                 transition-all
                 duration-300
-                hover:border-zinc-600
-                hover:bg-zinc-800/50
-                hover:text-zinc-100
+                hover:border-accent
+                hover:bg-surface
+                hover:text-accent
                 hover:scale-[1.03]
               "
             >
