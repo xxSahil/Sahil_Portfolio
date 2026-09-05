@@ -1,22 +1,51 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+/* Scan only our source files, not build output or unrelated folders. */
+@source "./";
+@source "../components";
+@source "../data";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f2eedf;
+  --foreground: #2e3427;
+  --surface: #e5e3d2;
+  --muted: #59604d;
+  --accent: #536b36;
+  --line: #cdcdb8;
+  --navbar: #f2eedfe6;
+  --button: #536b36;
+  --button-text: #ffffff;
+  --glow: rgba(111, 135, 69, 0.22);
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #1e293b;
+  --foreground: #f1f5f9;
+  --surface: #28364c;
+  --muted: #b0bfd2;
+  --accent: #83b4f4;
+  --line: #435570;
+  --navbar: #1e293be6;
+  --button: #83b4f4;
+  --button-text: #14243b;
+  --glow: rgba(87, 149, 229, 0.25);
+}
+
+/* These names become Tailwind classes, such as bg-surface and text-accent. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-navbar: var(--navbar);
+  --color-button: var(--button);
+  --color-button-text: var(--button-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -68,4 +97,112 @@ body {
 
 .animate-fade-in-delay-3 {
   animation: fadeIn 0.8s ease-out 1.5s forwards;
+}
+
+.animate-fade-in-delay-navbar {
+  animation: fadeIn 0.8s ease-out 1.2s forwards;
+}
+/* Project cards use a short reveal without an animation library. */
+@keyframes projectReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-revealed {
+  animation: projectReveal 0.6s ease-out both;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  color: var(--accent);
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.project-link:hover {
+  color: var(--foreground);
+}
+
+.project-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-revealed {
+    animation: none;
+  }
+}
+
+.theme-sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-sun {
+  display: block;
+}
+
+[data-theme="dark"] .theme-moon {
+  display: none;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* A soft blue highlight and a small lift for navigation links. */
+.nav-link {
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: background-color 180ms ease, color 180ms ease,
+    border-color 180ms ease, transform 180ms ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link {
+    transition: none;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    transform: none;
+  }
+}
+
+.mouse-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .mouse-glow {
+    display: none;
+  }
 }

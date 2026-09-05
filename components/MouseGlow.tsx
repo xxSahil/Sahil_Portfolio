@@ -1,39 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function MouseGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({
-        x: e.clientX,
-        y: e.clientY,
+    const glow = glowRef.current;
+    const canAnimate = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+
+    if (!glow || !canAnimate.matches) {
+      return;
+    }
+
+    let frameId = 0;
+
+    function handleMouseMove(event: MouseEvent) {
+      // Update the glow at most once per frame, without re-rendering React.
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        if (glow) {
+          glow.style.transform = `translate(${event.clientX - 250}px, ${event.clientY - 250}px)`;
+          glow.style.opacity = "1";
+        }
       });
-    };
+    }
+
+    function hideGlow() {
+      cancelAnimationFrame(frameId);
+      if (glow) {
+        glow.style.opacity = "0";
+      }
+    }
 
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("blur", hideGlow);
+    document.documentElement.addEventListener("mouseleave", hideGlow);
 
     return () => {
+      cancelAnimationFrame(frameId);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("blur", hideGlow);
+      document.documentElement.removeEventListener("mouseleave", hideGlow);
     };
   }, []);
 
-  return (
-    <div
-      className="pointer-events-none fixed inset-0 z-0"
-      aria-hidden="true"
-    >
-      <div
-        className="absolute h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl transition-transform duration-75"
-        style={{
-          left: position.x,
-          top: position.y,
-          background:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 70%)",
-        }}
-      />
-    </div>
-  );
+  return <div ref={glowRef} className="mouse-glow" aria-hidden="true" />;
 }
