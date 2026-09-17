@@ -5,6 +5,7 @@
 @source "../components";
 @source "../data";
 
+/* Default light palette. CSS variables are shared values; var(--accent) reads one. */
 :root {
   color-scheme: light;
   --background: #f2eedf;
@@ -19,6 +20,7 @@
   --glow: rgba(111, 135, 69, 0.22);
 }
 
+/* Override the same variables when the HTML element has data-theme="dark". */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --background: #1e293b;
@@ -48,12 +50,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Base page styles. More specific utility classes can override these defaults. */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Reveal the heading by widening its visible area. Keyframes describe animation stages. */
 @keyframes typing {
   from {
     width: 0;
@@ -63,12 +67,14 @@ body {
   }
 }
 
+/* Hide the right border halfway through each cycle to blink the typing cursor. */
 @keyframes blink {
   50% {
     border-color: transparent;
   }
 }
 
+/* Fade content in while moving it upward to its normal position. */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -80,6 +86,7 @@ body {
   }
 }
 
+/* steps(12, end) creates discrete typing jumps; infinite repeats only the cursor blink. */
 .animate-typing {
   width: fit-content;
   animation:
@@ -87,6 +94,8 @@ body {
     blink 0.8s step-end infinite;
 }
 
+/* Animation shorthand: name, duration, easing, delay, fill mode.
+   forwards keeps the final visible state after the animation finishes. */
 .animate-fade-in-delay-1 {
   animation: fadeIn 0.6s ease-out 1.0s forwards;
 }
@@ -99,6 +108,7 @@ body {
   animation: fadeIn 0.8s ease-out 1.5s forwards;
 }
 
+/* Available navbar entrance animation; the current navbar does not use this class. */
 .animate-fade-in-delay-navbar {
   animation: fadeIn 0.8s ease-out 1.2s forwards;
 }
@@ -121,29 +131,55 @@ body {
 .project-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding-block: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
   color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 2px;
   font-size: 0.875rem;
-  transition: color 0.2s ease;
+  font-weight: 500;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
-.project-link:hover {
-  color: var(--foreground);
+.project-link:hover,
+.project-link:focus-visible {
+  color: var(--button-text);
+  background: var(--button);
+  border-color: var(--button);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);
+  transform: translateY(-2px);
 }
 
+/* Show a clear keyboard-focus outline when tabbing through links. */
 .project-link:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 5px;
-  border-radius: 2px;
+  outline-offset: 3px;
 }
 
+/* Respect the device accessibility preference by disabling this reveal animation. */
 @media (prefers-reduced-motion: reduce) {
   .project-revealed {
     animation: none;
   }
+
+  .project-link {
+    transition: none;
+  }
+
+  .project-link:hover,
+  .project-link:focus-visible {
+    transform: none;
+  }
 }
 
+/* Show the sun in dark mode and the moon in light mode using the HTML theme attribute. */
 .theme-sun {
   display: none;
 }
@@ -169,6 +205,7 @@ body {
     border-color 180ms ease, transform 180ms ease;
 }
 
+/* color-mix makes a translucent accent tint; negative translateY lifts the link slightly. */
 .nav-link:hover,
 .nav-link:focus-visible {
   color: var(--accent);
@@ -188,6 +225,7 @@ body {
   }
 }
 
+/* A fixed, decorative layer. JavaScript moves it; pointer-events lets clicks pass through. */
 .mouse-glow {
   position: fixed;
   top: 0;
@@ -201,6 +239,7 @@ body {
   background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
 }
 
+/* Hide the glow for touch-style inputs or when the visitor prefers reduced motion. */
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .mouse-glow {
     display: none;
