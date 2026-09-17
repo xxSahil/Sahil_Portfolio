@@ -1,11 +1,13 @@
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 
+// Share the same styles between links; nav-link supplies the hover effect in CSS.
 const navButtonClassName =
   "nav-link inline-flex items-center rounded-full px-2 py-2 text-sm font-medium sm:px-4";
 
 export default function Navbar() {
   return (
+    // fixed keeps the navbar visible while scrolling; z-50 places it above page content.
     <nav className="fixed left-0 right-0 top-0 z-50 bg-navbar backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-5 sm:px-8 lg:px-12">
         <Link
@@ -16,6 +18,7 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-3">
+          {/* Next Link handles internal navigation without a full page reload. */}
           <Link href="/about" className={navButtonClassName}>
             About
           </Link>
@@ -24,6 +27,7 @@ export default function Navbar() {
             Projects
           </Link>
 
+          {/* Files inside public are served from the site root, without /public in the URL. */}
           <a
             href="/Sahil-Minhas-Resume.pdf"
             target="_blank"
