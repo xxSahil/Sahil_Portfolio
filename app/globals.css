@@ -17,7 +17,6 @@
   --navbar: #f2eedfe6;
   --button: #536b36;
   --button-text: #ffffff;
-  --glow: rgba(111, 135, 69, 0.22);
 }
 
 /* Override the same variables when the HTML element has data-theme="dark". */
@@ -32,7 +31,6 @@
   --navbar: #1e293be6;
   --button: #83b4f4;
   --button-text: #14243b;
-  --glow: rgba(87, 149, 229, 0.25);
 }
 
 /* These names become Tailwind classes, such as bg-surface and text-accent. */
@@ -222,26 +220,5 @@ body {
   .nav-link:hover,
   .nav-link:focus-visible {
     transform: none;
-  }
-}
-
-/* A fixed, decorative layer. JavaScript moves it; pointer-events lets clicks pass through. */
-.mouse-glow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-}
-
-/* Hide the glow for touch-style inputs or when the visitor prefers reduced motion. */
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .mouse-glow {
-    display: none;
   }
 }

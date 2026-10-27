@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FiImage, FiVideo } from "react-icons/fi";
-import MouseGlow from "@/components/MouseGlow";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
@@ -47,7 +46,6 @@ const mediaGridClassName = "mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2";
 export default function About() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <MouseGlow />
       <Navbar />
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-36 sm:px-8 lg:px-12">

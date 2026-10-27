@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
-import MouseGlow from "@/components/MouseGlow";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 
@@ -18,7 +17,6 @@ export default function ProjectsPage() {
 
   return (
     <main className="min-h-screen bg-background font-sans text-foreground">
-      <MouseGlow />
       <Navbar />
 
       <section className="relative mx-auto max-w-7xl px-6 pb-24 pt-36 sm:px-8 lg:px-12">
